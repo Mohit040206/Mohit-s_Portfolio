@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohit Kumar Das | Developer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ======================= */
+        /* GLOBAL STYLES & SETUP   */
+        /* ======================= */
+        :root {
+            --bg-dark: #0A0A0F;
+            --text-light: #E0E0E0;
+            --accent-neon: #00FFFF; /* Cyan/Electric Blue */
+            --font-mono: 'Fira Code', monospace;
+            --font-heading: 'Orbitron', sans-serif;
+        }
+
+        /* Enable smooth scrolling across the entire page (The key to your request!) */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-mono);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevents horizontal scroll from animations */
+        }
+
+        /* Utility Class for Neon Text Highlight */
+        .highlight {
+            color: var(--accent-neon);
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        .highlight-bullet {
+            color: var(--accent-neon);
+            margin-right: 8px;
+        }
+        
+        /* Section fade-in animation setup (for a dynamic feel) */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            /* In a real environment, JS would add an 'is-visible' class, but we set it up here. */
+            opacity: 1; 
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* ======================= */
+        /* NAVIGATION BAR (Fixed)  */
+        /* ======================= */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 50px;
+            /* Frosted glass/Techy look */
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            margin-left: -50px;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: var(--accent-neon);
+        }
+
+        .logo .cursor {
+            animation: blink 1s step-end infinite;
+            font-weight: bold;
+        }
+
+        @keyframes blink {
+            from, to { color: transparent }
+            50% { color: var(--accent-neon); }
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-neon);
+        }
+
+        /* Neon Underline effect on hover */
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-neon);
+            box-shadow: 0 0 5px var(--accent-neon);
+            transition: width 0.3s ease-out;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ======================= */
+        /* SECTIONS & TITLES       */
+        /* ======================= */
+        section {
+            padding: 100px 10%;
+            min-height: 80vh; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 60px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            position: relative;
+        }
+
+        /* ======================= */
+        /* 2. HERO SECTION         */
+        /* ======================= */
+        .hero-section {
+            padding-top: 20vh;
+            text-align: left;
+            min-height: 100vh;
+            align-items: flex-start;
+        }
+
+        .hero-section h1 {
+            font-family: var(--font-heading);
+            font-size: 4.5rem;
+            margin: 0;
+            color: white;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+        }
+
+        .hero-section .greeting {
+            font-size: 1.2rem;
+            color: var(--accent-neon);
+        }
+
+        .hero-section .tagline {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 20px 0 40px;
+        }
+
+        .social-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 10px 20px;
+            margin-right: 15px;
+            border: 2px solid var(--accent-neon);
+            color: var(--accent-neon);
+            transition: all 0.3s ease-in-out;
+            display: inline-block;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent-neon);
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px var(--accent-neon);
+            transform: scale(1.05);
+        }
+
+        /* ======================= */
+        /* 3. TECHNOLOGY SECTION   */
+        /* ======================= */
+        .skills-grid {
+            display: flex;
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .skill-card {
+            flex: 1;
+            background-color: #1A1A22;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+            border-color: var(--accent-neon);
+        }
+
+        .skill-card h3 {
+            font-family: var(--font-heading);
+            color: var(--accent-neon);
+            border-bottom: 2px solid rgba(0, 255, 255, 0.2);
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .skill-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .skill-card li {
+            margin-bottom: 10px;
+        }
+
+
+        /* ======================= */
+        /* 4. PROJECTS SECTION     */
+        /* ======================= */
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .project-card {
+            background-color: #1A1A22;
+            padding: 30px;
+            border-radius: 10px;
+            position: relative;
+            border: 1px solid #333;
+            /* 3D Tilt Effect on Hover */
+            transform-style: preserve-3d;
+            transition: all 0.4s ease-out;
+        }
+
+        .project-card:hover {
+            transform: translateZ(20px) scale(1.03); /* Subtle forward movement */
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.5); /* Stronger neon glow */
+            border-color: var(--accent-neon);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .project-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-neon);
+            margin-right: 15px;
+            font-family: var(--font-heading);
+        }
+
+        .project-card h3 {
+            font-family: var(--font-heading);
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .project-tech {
+            color: #999;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        /* ======================= */
+        /* 5. ABOUT SECTION        */
+        /* ======================= */
+        .about-section {
+            text-align: center;
+            min-height: 60vh;
+        }
+
+        .about-content {
+            max-width: 900px;
+            text-align: left;
+        }
+
+        .summary-text {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed rgba(0, 255, 255, 0.2);
+        }
+
+        .education-timeline {
+            border-left: 2px solid var(--accent-neon);
+            padding-left: 25px;
+            margin-top: 30px;
+        }
+
+        .education-timeline h3 {
+            font-family: var(--font-heading);
+            color: var(--accent-neon);
+            margin-top: 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -35px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-neon);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-neon);
+        }
+
+        .timeline-item h4 {
+            margin: 0 0 5px;
+            color: white;
+        }
+
+        /* ======================= */
+        /* 6. CONTACT SECTION      */
+        /* ======================= */
+        .contact-section {
+            min-height: 80vh;
+            text-align: center;
+        }
+
+        .contact-section .tagline {
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto 30px;
+        }
+
+        .input-glow {
+            padding: 15px;
+            border: 1px solid #333;
+            background-color: #1A1A22;
+            color: var(--text-light);
+            border-radius: 5px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: var(--font-mono);
+        }
+
+        .input-glow:focus {
+            outline: none;
+            border-color: var(--accent-neon);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Neon focus effect */
+        }
+
+        .submit-button {
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 15px;
+            background-color: var(--accent-neon);
+            color: var(--bg-dark);
+            border: 2px solid var(--accent-neon);
+            transition: all 0.3s;
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+        }
+
+        .submit-button:hover {
+            background-color: transparent;
+            color: var(--accent-neon);
+            box-shadow: 0 0 15px var(--accent-neon);
+            transform: scale(1.02);
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+
+        /* ======================= */
+        /* FOOTER                  */
+        /* ======================= */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #050508;
+            font-size: 0.8rem;
+            color: #555;
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">MOHIT KUMAR DAS<span class="cursor">_</span></div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#technology">Technology</a>
+            <a href="#projects">Projects</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact Us</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero-section">
+            <div class="content-box fade-in">
+                <p class="greeting">// Hello World, I'm</p>
+                <h1>MOHIT KUMAR DAS</h1>
+                <p class="tagline">BCA graduate with expertise in <span class="highlight">Java, MySQL, and REST APIs</span>. Experienced in full-stack web application development and cloud solutions.</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/mohit-kumar-das-816416258" target="_blank" class="glow-link">LinkedIn</a>
+                    <a href="https://github.com/Mohit040206" target="_blank" class="glow-link">GitHub</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="technology" class="tech-section">
+            <h2 class="section-title">01. Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card fade-in">
+                    <h3>Languages</h3>
+                    <ul>
+                        <li><span class="highlight-bullet">λ</span> **Java** (Core, OOP)</li>
+                        <li><span class="highlight-bullet">λ</span> **SQL** (MySQL)</li>
+                        <li><span class="highlight-bullet">λ</span> HTML/CSS</li>
+                    </ul>
+                </div>
+                <div class="skill-card fade-in">
+                    <h3>Frameworks & Tools</h3>
+                    <ul>
+                        <!-- <li><span class="highlight-bullet">λ</span> **Spring Boot** (Backend)</li> -->
+                        <li><span class="highlight-bullet">λ</span> MySQL / Spring Data JPA</li>
+                        <li><span class="highlight-bullet">λ</span> Git / GitHub</li>
+                        <li><span class="highlight-bullet">λ</span> Postman (APIs)</li>
+                    </ul>
+                </div>
+                <div class="skill-card fade-in">
+                    <h3>Concepts</h3>
+                    <ul>
+                        <li><span class="highlight-bullet">λ</span> **REST APIs** Design</li>
+                        <li><span class="highlight-bullet">λ</span> Object-Oriented Programming (OOP)</li>
+                        <li><span class="highlight-bullet">λ</span> SDLC (Agile/Waterfall)</li>
+                        <!-- <li><span class="highlight-bullet">λ</span> Data Structures</li> -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects-section">
+    <h2 class="section-title">02. Featured Projects</h2>
+    <div class="projects-container">
+
+        <div class="project-card fade-in">
+            <div class="project-header">
+                <span class="project-number">01</span>
+                <h3>Campus Question Hub</h3>
+            </div>
+            <p class="project-tech">Spring Boot | MySQL | HTML/CSS | REST APIs</p>
+            <p>Developed a role-based academic portal enabling secure login, file upload/download, and structured search. Implemented the backend using Spring Boot with RESTful APIs.</p>
+            <a href="https://github.com/Mohit040206/CampusQuestionHub" target="_blank" class="project-link">View Code &rarr;</a>
+        </div>
+
+        <div class="project-card fade-in">
+            <div class="project-header">
+                <span class="project-number">02</span>
+                <h3>Cloud Vault (In Progress)</h3>
+            </div>
+            <p class="project-tech">Spring Boot | MySQL | Spring Data JPA</p>
+            <p>Building a secure cloud-based storage system for users to upload, manage, and search documents. Features include authentication, document versioning, and modular design.</p>
+            <a href="https://github.com/Mohit040206/CloudVault" target="_blank" class="project-link">View Code &rarr;</a>
+        </div>
+
+        <div class="project-card fade-in">
+            <div class="project-header">
+                <span class="project-number">03</span>
+                <h3>Face Recognition System</h3>
+            </div>
+            <p class="project-tech">Python | OpenCV | Machine Learning</p>
+            <p>Led a Python-based face recognition project. Managed dataset preparation, feature extraction, and model testing while coordinating team efforts and maintaining project documentation.</p>
+            <a href="https://github.com/Mohit040206/Face-Recognition-CNN" target="_blank" class="project-link">View Code &rarr;</a>
+        </div>
+
+    </div>
+</section>
+
+        <section id="about" class="about-section">
+            <h2 class="section-title">03. About Me & Education</h2>
+            <div class="about-content">
+                <p class="summary-text fade-in">
+                    I am a highly motivated BCA graduate recognized for my problem-solving skills, adaptability, and strong knowledge of core programming principles (OOP) and development methodologies (SDLC). My focus is on developing robust, scalable applications using the Java ecosystem.
+                </p>
+                
+                <div class="education-timeline">
+                    <h3 class="fade-in">Education & Achievements</h3>
+                    
+                    <div class="timeline-item fade-in">
+                        <h4>Bachelor of Computer Applications (BCA)</h4>
+                        <p>Kazi Nazrul University, Raniganj, WB | 2022-2025 | **CGPA: 8.62**</p>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <h4>Certifications</h4>
+                        <p>Oracle Learning Explorer - Java Foundations, IBM SkillsBuild - Java Programming Fundamentals.</p>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <h4>Top Ranks</h4>
+                        <p>Achieved **AIR 4260** in AINCAT Aptitude Test (out of 2.1+ lakh participants) and **AIR 687** in Naukri Code Quest 2025.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <h2 class="section-title">04. Get In Touch</h2>
+            <p class="tagline fade-in">My inbox is always open. Whether you have a question about my projects or just want to say hi, I’ll try my best to get back to you!</p>
+            
+            <form action="mailto:mohitkumarpath@gmail.com" method="post" enctype="text/plain" class="contact-form fade-in">
+                <input type="text" placeholder="Name" required class="input-glow">
+                <input type="email" placeholder="Email" required class="input-glow">
+                <textarea placeholder="Your Message..." rows="6" required class="input-glow"></textarea>
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+
+            <p class="contact-info">
+                Email: <span class="highlight">mohitkumarpath@gmail.com</span> | Phone: <span class="highlight">+91 6200039874</span>
+            </p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Mohit Kumar Das. Designed with <span class="highlight">HTML</span> & <span class="highlight">CSS</span>.</p>
+    </footer>
+
+</body>
+</html>
